@@ -17,7 +17,7 @@ export default async function addPlant(prevState: any, formData: FormData) {
     const interval = parseInt(formData.get("interval") as string);
 
     const imageURL = (await axios.post(
-      `${"http://localhost:3000"}/api/images`,
+      `${process.env.DOMAIN || "http://localhost:3000"}/api/images`,
       formData,
       {
         headers: {
