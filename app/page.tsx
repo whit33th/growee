@@ -1,4 +1,4 @@
-import { Plant } from "@prisma/client";
+import type { Plant } from "@prisma/client";
 import FrogOnFlower from "../components/UI/svg/FrogOnFlower";
 import PlantCard from "@/components/containers/Cards/PlantCard";
 
