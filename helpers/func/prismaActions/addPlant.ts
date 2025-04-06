@@ -16,7 +16,7 @@ export default async function addPlant(prevState: any, formData: FormData) {
     const title = formData.get("title") as string;
     const interval = parseInt(formData.get("interval") as string);
 
-    const imageURL = (await axios.post(
+    const response = await axios.post(
       `${process.env.DOMAIN || "http://localhost:3000"}/api/images`,
       formData,
       {
@@ -24,7 +24,9 @@ export default async function addPlant(prevState: any, formData: FormData) {
           "Content-Type": "multipart/form-data",
         },
       },
-    )) as string;
+    );
+
+    const imageURL = response.data;
 
     if (!title || title.length < 3) {
       return { error: "Plant name must be at least 3 characters" };
