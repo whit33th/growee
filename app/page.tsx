@@ -13,7 +13,7 @@ export default function Home() {
     </div>
   ) : (
     <div className="flex h-full flex-1 items-center justify-center">
-      <FrogOnFlower message="No plants found. Add some beautiful plants to your collection!" />
+      <FrogOnFlower message="No plants found. Add some beautiful plants to your collection!!!" />
     </div>
   );
 }
