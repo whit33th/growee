@@ -1,6 +1,8 @@
 import type { Plant } from "@prisma/client";
 import FrogOnFlower from "../components/UI/svg/FrogOnFlower";
 import PlantCard from "@/components/containers/Cards/PlantCard";
+import { auth } from "@clerk/nextjs/server";
+import prisma from "@/lib/prisma";
 
 export default async function Home() {
   const { userId } = await auth();
