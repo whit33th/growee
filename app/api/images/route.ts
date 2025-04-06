@@ -16,9 +16,8 @@ export async function POST(req: NextRequest) {
 
     try {
       const { cid } = await pinata.upload.public.file(imageFile);
-      const url = await pinata.gateways.public
-        .get(cid)
-        .optimizeImage({ width: 500, format: "webp" });
+      const url = await pinata.gateways.public.convert(cid);
+
       return NextResponse.json(url, { status: 200 });
     } catch (pinataError) {
       console.error("Pinata API error:", pinataError);
