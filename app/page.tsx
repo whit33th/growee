@@ -18,7 +18,7 @@ export default async function Home() {
       userId: userId,
     },
     orderBy: {
-      id: "desc",
+      nextWaterDate: "asc",
     },
   });
 

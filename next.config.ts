@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "img.clerk.com",
       },
+      {
+        protocol: "https",
+        hostname: "tan-effective-kite-240.mypinata.cloud",
+      },
     ],
   },
 };
