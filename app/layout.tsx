@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/containers/Sidebar/Sidebar";
+import { ClerkLoaded, ClerkProvider } from "@clerk/nextjs";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -19,12 +20,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${robotoSans.variable} antialiased`}>
-        <div className="bg-background m-2 rounded-xl outline-2 outline-green-300">
-          <Sidebar>{children}</Sidebar>
-        </div>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${robotoSans.variable} antialiased`}>
+          <ClerkLoaded>
+            <div className="bg-background m-2 rounded-xl outline-2 outline-green-300">
+              <Sidebar>{children}</Sidebar>
+            </div>
+          </ClerkLoaded>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

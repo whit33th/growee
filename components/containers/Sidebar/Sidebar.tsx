@@ -1,13 +1,22 @@
 import Button from "@/components/UI/buttons/Button";
 import Logo from "@/components/UI/svg/Logo";
-import { Flower2, Plus, Settings } from "lucide-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignOutButton,
+} from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import { Flower2, LogIn, LogOut, Plus, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function Sidebar({
+export default async function Sidebar({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const user = await currentUser();
+
   const nav = [
     { name: "Dashboard", href: "/", icon: <Flower2 size={18} /> },
     { name: "Settings", href: "/settings", icon: <Settings size={18} /> },
@@ -22,7 +31,7 @@ export default function Sidebar({
             <span className="pb-2">Groowee</span>
           </div>
           <section className="p-2">
-            <Button className="">
+            <Button link href="/new">
               <Plus size={20} />
               <span className="font-semibold">Plant</span>
             </Button>
@@ -42,15 +51,33 @@ export default function Sidebar({
             </ul>
           </section>
         </div>
-        <div className="flex items-center gap-3 rounded-bl-xl bg-green-100 p-3">
-          <Image
-            src="/img/grey.png"
-            width={36}
-            height={36}
-            className="rounded-full"
-            alt="profile"
-          />
-          <p>Daniil</p>
+        <div className="flex flex-col items-center gap-3 rounded-bl-xl bg-green-100 p-3">
+          <SignedIn>
+            <div className="flex items-center gap-3">
+              <Image
+                src={user?.imageUrl || "/img/grey.png"}
+                width={36}
+                height={36}
+                className="rounded-full border border-green-300"
+                alt="profile"
+              />
+              <p className="font-semibold">{user?.firstName}</p>
+            </div>
+            <SignOutButton>
+              <Button type="button" className="w-full">
+                <LogOut size={18} />
+                <span className="font-semibold">Log out</span>
+              </Button>
+            </SignOutButton>
+          </SignedIn>
+          <SignedOut>
+            <SignInButton>
+              <Button type="button" className="w-full">
+                <LogIn size={18} />
+                <span className="font-semibold">Sing In</span>
+              </Button>
+            </SignInButton>
+          </SignedOut>
         </div>
       </aside>
       <main className="h-full w-full flex-1 overflow-y-auto p-4 text-green-50">
