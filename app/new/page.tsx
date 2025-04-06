@@ -14,14 +14,6 @@ export default function Page() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Create a FormData object
-      const formData = new FormData();
-      formData.append("image", file);
-
-      // Here you would typically send the FormData to your server
-      // For example: fetch('/api/upload', { method: 'POST', body: formData });
-
-      // Create a URL for the image to display it
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
     }
