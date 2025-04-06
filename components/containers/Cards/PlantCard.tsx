@@ -1,6 +1,6 @@
 "use client";
 import getTimeRemaining from "@/helpers/func/getTimeRemaining";
-import { Plant } from "@prisma/client";
+import type { Plant } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";

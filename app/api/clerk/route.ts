@@ -17,9 +17,9 @@ export async function POST(req: Request) {
 
   // Get headers
   const headerPayload = headers();
-  const svix_id = (await headerPayload).get("svix-id");
-  const svix_timestamp = (await headerPayload).get("svix-timestamp");
-  const svix_signature = (await headerPayload).get("svix-signature");
+  const svix_id = (await headerPayload).get("svix-id") || "";
+  const svix_timestamp = (await headerPayload).get("svix-timestamp") || "";
+  const svix_signature = (await headerPayload).get("svix-signature") || "";
 
   // If there are no headers, error out
   if (!svix_id || !svix_timestamp || !svix_signature) {
