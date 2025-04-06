@@ -6,12 +6,19 @@ import prisma from "@/lib/prisma";
 
 export default async function Home() {
   const { userId } = await auth();
+  if (!userId) {
+    return (
+      <div className="flex h-full flex-1 items-center justify-center">
+        <FrogOnFlower message="Please log in to see your plants." />
+      </div>
+    );
+  }
   const plants: Plant[] = await prisma.plant.findMany({
     where: {
       userId: userId,
     },
     orderBy: {
-      createdAt: "desc",
+      id: "desc",
     },
   });
 
