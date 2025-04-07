@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: number }> },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { userId } = await auth();
@@ -17,14 +17,16 @@ export async function GET(
 
     const { id } = await params;
 
-    if (isNaN(id)) {
+    const parsedId = parseInt(id);
+
+    if (isNaN(parsedId)) {
       return new NextResponse(JSON.stringify({ error: "Invalid plant ID" }), {
         status: 400,
       });
     }
 
     const plant = await prisma.plant.findUnique({
-      where: { id },
+      where: { id: parsedId },
     });
 
     if (!plant) {
