@@ -79,10 +79,10 @@ export default function EditPlantPage({
   if (error || !plant) {
     return (
       <div className="flex h-full flex-col items-center justify-center gap-4 text-center">
-        <h1 className="text-2xl font-bold text-red-600">
+        <h1 className="text-2xl font-bold text-green-100">
           Failed to load plant details
         </h1>
-        <p className="text-gray-600">{error || "Plant not found"}</p>
+        <p className="text-green-100">{error || "Plant not found"}</p>
         <Button className="bg-green-200" onClick={() => router.push("/")}>
           Return Home
         </Button>
