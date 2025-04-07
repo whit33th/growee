@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } },
+  context: { params: { id: string } },
 ) {
   try {
     const { userId } = await auth();
@@ -15,7 +15,7 @@ export async function GET(
       });
     }
 
-    const plantId = parseInt(params.id);
+    const plantId = parseInt(context.params.id);
 
     if (isNaN(plantId)) {
       return new NextResponse(JSON.stringify({ error: "Invalid plant ID" }), {
