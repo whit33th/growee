@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/containers/Sidebar/Sidebar";
 import { ClerkLoaded, ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -27,6 +28,7 @@ export default function RootLayout({
             <div className="bg-background m-2 rounded-xl outline-2 outline-green-300">
               <Sidebar>{children}</Sidebar>
             </div>
+            <Toaster richColors />
           </ClerkLoaded>
         </body>
       </html>

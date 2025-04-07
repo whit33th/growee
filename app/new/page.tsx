@@ -1,25 +1,54 @@
 "use client";
 
 import Input from "@/components/UI/inputs/Input";
-import React, { useActionState, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import FileInput from "@/components/UI/inputs/FileInput";
 import { FileImage, Flower, Flower2 } from "lucide-react";
 import Image from "next/image";
 import Button from "@/components/UI/buttons/Button";
 import addPlant from "@/helpers/func/prismaActions/addPlant";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Page() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  const router = useRouter();
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const allowedTypes = [
+        "image/png",
+        "image/jpeg",
+        "image/jpg",
+        "image/webp",
+      ];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("Please select only PNG, JPG, JPEG or WEBP images");
+        e.target.value = "";
+        return;
+      }
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
     }
   };
   const [state, dispatch, isPending] = useActionState(addPlant, null);
 
+  useEffect(() => {
+    if (isPending) {
+      toast.loading("Adding plant...");
+    }
+    if (!isPending) {
+      toast.dismiss();
+    }
+    if (state?.redirect) {
+      toast.success("Plant added successfully!");
+      router.push("/");
+    }
+    if (state?.error) {
+      toast.error("Something went wrong. Please try again.");
+    }
+  }, [state, router, isPending]);
   console.log("State:", state);
   return (
     <div className="flex h-full flex-col-reverse gap-4 md:flex-row">

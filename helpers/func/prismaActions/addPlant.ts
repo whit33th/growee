@@ -16,18 +16,20 @@ export default async function addPlant(prevState: any, formData: FormData) {
     const title = formData.get("title") as string;
     const interval = parseInt(formData.get("interval") as string);
 
-    const response = await axios.post(
-      `${process.env.DOMAIN || "http://localhost:3000"}/api/images`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
+    const image = formData.get("image") as File | null;
+    let imageURL = null;
+    if (image && image.size > 0) {
+      const response = await axios.post(
+        `${process.env.DOMAIN || "http://localhost:3000"}/api/images`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         },
-      },
-    );
-
-    const imageURL = response.data;
-
+      );
+      imageURL = response.data || null;
+    }
     if (!title || title.length < 3) {
       return { error: "Plant name must be at least 3 characters" };
     }
@@ -40,7 +42,7 @@ export default async function addPlant(prevState: any, formData: FormData) {
     nextWateringDate.setDate(nextWateringDate.getDate() + interval);
 
     // Create new plant in database
-    const newPlant = await prisma.plant.create({
+    await prisma.plant.create({
       data: {
         name: title,
         interval,
@@ -56,10 +58,11 @@ export default async function addPlant(prevState: any, formData: FormData) {
 
     return {
       success: true,
-      plantId: newPlant.id,
+      redirect: true,
     };
   } catch (error) {
     console.error("Failed to add plant:", error);
+
     return { error: "Failed to add plant" };
   }
 }

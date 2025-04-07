@@ -3,6 +3,7 @@ interface IInput {
   label: string;
   placeholder: string;
   id: string;
+  defaultValue?: string | number;
   type?:
     | "text"
     | "email"
@@ -19,6 +20,7 @@ export default function Input({
   placeholder,
   type = "text",
   id,
+  defaultValue,
 }: IInput) {
   return (
     <div className={`flex flex-col gap-1 ${className}`}>
@@ -34,6 +36,7 @@ export default function Input({
         name={id}
         type={type}
         min={type === "number" ? 0 : undefined}
+        defaultValue={defaultValue}
       />
     </div>
   );

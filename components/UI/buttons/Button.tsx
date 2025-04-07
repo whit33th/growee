@@ -20,7 +20,7 @@ export default function Button({
   disabled = false,
   onClick,
 }: ButtonProps) {
-  const styles = `flex items-center outline-none text-green-800 font-semibold justify-center gap-1 rounded-lg bg-green-50 px-2 py-1 transition select-none hover:opacity-95 active:scale-95 ${className}`;
+  const styles = `flex items-center cursor-pointer outline-none text-green-800 font-semibold justify-center gap-1 rounded-lg bg-green-50 px-2 py-1 transition select-none hover:opacity-90 active:scale-95 ${className}`;
 
   if (link) {
     return (

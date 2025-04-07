@@ -23,18 +23,74 @@ export default async function Sidebar({
   ];
 
   return (
-    <div className="flex h-[calc(100vh-16px)] w-full overflow-hidden">
-      <aside className="flex w-56 flex-col justify-between rounded-l-xl bg-green-200 text-green-900">
+    <div className="flex h-[calc(100vh-16px)] w-full flex-col overflow-hidden md:flex-row">
+      {/* Mobile top navigation - visible only on small screens */}
+      <header className="flex items-center justify-between bg-green-200 p-2 text-green-900 md:hidden">
+        <Link
+          href={"/"}
+          className="flex items-center transition-opacity duration-100 hover:opacity-80"
+        >
+          <Logo />
+          <span className="ml-2 font-semibold">Groowee</span>
+        </Link>
+        <div className="flex items-center gap-2 text-green-800">
+          <SignedIn>
+            <Link
+              href="/new"
+              className="rounded-full bg-green-300 p-1.5 transition-colors hover:bg-green-400"
+            >
+              <Plus size={20} />
+            </Link>
+            <Link
+              href="/settings"
+              className="rounded-full bg-green-300 p-1.5 transition-colors hover:bg-green-400"
+            >
+              <Settings size={20} />
+            </Link>
+            <Link
+              href="/"
+              className="rounded-full bg-green-300 p-1.5 transition-colors hover:bg-green-400"
+            >
+              <Flower2 size={20} />
+            </Link>
+            <div className="ml-2 flex items-center">
+              <Image
+                src={user?.imageUrl || "/img/grey.png"}
+                width={32}
+                height={32}
+                className="rounded-full border border-green-300"
+                alt="profile"
+              />
+            </div>
+          </SignedIn>
+          <SignedOut>
+            <SignInButton>
+              <Button type="button" className="px-2 py-1">
+                <LogIn size={16} />
+                <span className="text-xs font-semibold">Sign In</span>
+              </Button>
+            </SignInButton>
+          </SignedOut>
+        </div>
+      </header>
+
+      {/* Desktop sidebar - hidden on mobile */}
+      <aside className="hidden w-56 flex-col justify-between rounded-l-xl bg-green-200 text-green-900 md:flex">
         <div>
-          <div className="flex flex-col items-center justify-center rounded-tl-xl border-b-2 border-b-green-300 bg-green-100 text-base/[1] font-semibold text-green-900">
+          <Link
+            href={"/"}
+            className="flex flex-col items-center justify-center rounded-tl-xl border-b-2 border-b-green-300 bg-green-100 text-base/[1] font-semibold text-green-900 transition-opacity hover:opacity-80"
+          >
             <Logo />
             <span className="pb-2">Groowee</span>
-          </div>
+          </Link>
           <section className="p-2">
-            <Button link href="/new">
-              <Plus size={20} />
-              <span className="font-semibold">Plant</span>
-            </Button>
+            <SignedIn>
+              <Button link href="/new">
+                <Plus size={20} />
+                <span className="font-semibold">Plant</span>
+              </Button>
+            </SignedIn>
 
             <ul className="mt-2 flex flex-col gap-2 rounded-lg bg-green-100 p-2">
               {nav.map((item) => (
@@ -80,6 +136,7 @@ export default async function Sidebar({
           </SignedOut>
         </div>
       </aside>
+
       <main className="h-full w-full flex-1 overflow-y-auto p-4 text-green-50">
         {children}
       </main>
