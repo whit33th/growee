@@ -4,6 +4,7 @@ import "./globals.css";
 import Sidebar from "@/components/containers/Sidebar/Sidebar";
 import { ClerkLoaded, ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
+import NextTopLoader from "nextjs-toploader";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -24,6 +25,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${robotoSans.variable} antialiased`}>
+          <NextTopLoader color="#37e0c3" showSpinner={false} height={3} />
           <ClerkLoaded>
             <div className="bg-background m-2 rounded-xl outline-2 outline-green-300">
               <Sidebar>{children}</Sidebar>
