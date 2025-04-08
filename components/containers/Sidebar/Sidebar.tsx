@@ -42,16 +42,16 @@ export default async function Sidebar({
               <Plus size={20} />
             </Link>
             <Link
-              href="/settings"
-              className="rounded-full bg-green-300 p-1.5 transition-colors hover:bg-green-400"
-            >
-              <Settings size={20} />
-            </Link>
-            <Link
               href="/"
               className="rounded-full bg-green-300 p-1.5 transition-colors hover:bg-green-400"
             >
               <Flower2 size={20} />
+            </Link>
+            <Link
+              href="/settings"
+              className="rounded-full bg-green-300 p-1.5 transition-colors hover:bg-green-400"
+            >
+              <Settings size={20} />
             </Link>
             <div className="ml-2 flex items-center">
               <Image
