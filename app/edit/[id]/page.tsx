@@ -92,8 +92,7 @@ export default function EditPlantPage({
 
   return (
     <div className="flex h-full flex-col-reverse gap-4 md:flex-row">
-      {/* Form Section */}
-      <div className="flex max-w-lg flex-1 flex-col rounded-xl bg-white p-4 md:p-5 lg:min-w-[400px]">
+      <div className="flex flex-1 flex-col rounded-xl bg-white p-4 md:p-5">
         <h1 className="mb-4 text-center text-2xl font-bold text-green-800 md:text-3xl">
           Edit Plant
         </h1>
@@ -142,9 +141,8 @@ export default function EditPlantPage({
         </form>
       </div>
 
-      {/* Image Preview Section */}
       <div
-        className={`flex h-[250px] items-center justify-center rounded-xl bg-white md:h-auto md:flex-1 ${
+        className={`flex h-[250px] items-center justify-center rounded-xl bg-white md:h-auto md:flex-2 ${
           selectedImage ? "border-2 border-green-300" : ""
         }`}
       >
